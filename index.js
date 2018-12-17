@@ -13,6 +13,11 @@ restService.use(
 
 restService.use(bodyParser.json());
 
+/****************************************** Start of the extraction block ****************/
+
+/*
+ /echo api is used for the getting text from dialog flow and store that text into speech variable.
+ */
 restService.post("/echo", function(req, res) {
     let speech =
         req.body.result &&
@@ -21,30 +26,27 @@ restService.post("/echo", function(req, res) {
             ? req.body.result.parameters.echoText
             : "Seems like some problem. Speak again.";
 
+    /****************************************** End of the extraction block ****************/
 
-        //create post request post variable =  speech
-    if (speech !== null || speech !== ''){
-        request.post(
-            'https://forserene.com/mini/dbcreate.php',
-            { slack: speech },
-            function (error, response, body) {
-                if (!error && response.statusCode == 200) {
-                    return res.json({
-                        speech: "database created successfully",
-                        displayText: "database created successfully",
-                        source: "webhook-echo-sample"
-                    });
-                }else{
-                    //failure
-                    return res.json({
-                        speech: "database creation failed",
-                        displayText: "database creation failed",
-                        source: "webhook-echo-sample"
-                    });
-                }
-            }
-        );
-    } else{
+
+    /********************************** database creation block start ***********************/
+        /*
+        Compare speech variable for null or empty values. If speech variable is not null and its not empty then execute
+        if block otherwise execute else block.
+
+        If block explanation - dbcreate.php is API where we send speech variable as post variable. Once API is executed
+        success message is send back to user.
+        else block explanation - normal error message is sent back to the user.
+         */
+    if (speech !== null && speech !== ''){
+        request.post({url:'https://forserene.com/mini/dbcreate.php', form: {slack:speech}}, function(err,httpResponse,body){
+            return res.json({
+                speech: "Database Created Successfully",
+                displayText: "Database Created Successfully",
+                source: "webhook-echo-sample"
+            });
+        });
+    } else {
         //submit return message to the user
         return res.json({
             speech: "Please enter database name",
@@ -52,9 +54,7 @@ restService.post("/echo", function(req, res) {
             source: "webhook-echo-sample"
         });
     }
-
-
-
+    /********************************** database creation block end ***********************/
 });
 
 restService.post("/audio", function(req, res) {
