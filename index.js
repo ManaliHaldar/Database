@@ -18,7 +18,7 @@ restService.use(bodyParser.json());
 /*
  /echo api is used for the getting text from dialog flow and store that text into speech variable.
  */
-restService.post("/echo", function(req, res) {
+restService.post("/database", function(req, res) {
     let speech =
         req.body.result &&
         req.body.result.parameters &&
