@@ -39,7 +39,7 @@ restService.post("/database", function(req, res) {
         else block explanation - normal error message is sent back to the user.
          */
     if (speech !== null && speech !== ''){
-        request.post({url:'https://forserene.com/mini/dbcreate.php', form: {slack:speech}}, function(err,httpResponse,body){
+        request.post({url:'https://forserene.com/mini/myDB.php', form: {slack:speech}}, function(err,httpResponse,body){
             return res.json({
                 speech: "Database Created Successfully",
                 displayText: "Database Created Successfully",
