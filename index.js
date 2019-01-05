@@ -39,10 +39,12 @@ restService.post("/database", function(req, res) {
         else block explanation - normal error message is sent back to the user.
          */
     if (speech !== null && speech !== ''){
+        
         request.post({url:'https://forserene.com/mini/myDB.php', form: {slack:speech}}, function(err,httpResponse,body){
+          var obj = JSON.parse(body)
             return res.json({
-                speech:body[1],
-                displayText: body[0],
+                speech:obj.text,
+                displayText: obj.code,
                 source: "webhook-echo-sample"
             });
         });
