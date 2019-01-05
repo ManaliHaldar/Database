@@ -41,8 +41,8 @@ restService.post("/database", function(req, res) {
     if (speech !== null && speech !== ''){
         request.post({url:'https://forserene.com/mini/myDB.php', form: {slack:speech}}, function(err,httpResponse,body){
             return res.json({
-                speech: httpResponse,
-                displayText: httpResponse,
+                speech: 'hello '+httpResponse,
+                displayText: 'hello '+httpResponse,
                 source: "webhook-echo-sample"
             });
         });
