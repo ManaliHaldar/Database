@@ -43,7 +43,7 @@ restService.post("/database", function(req, res) {
           var obj = JSON.parse(body)
             return res.json({
                 speech:obj.text,
-                displayText: obj.code,
+                displayText: obj.text,
                 source: "webhook-echo-sample"
             });
         });
