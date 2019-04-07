@@ -42,8 +42,8 @@ restService.post("/database", function(req, res) {
         request.post({url:'http://phelix.co.in/mini/myDB.php', form: {slack:speech}}, function(err,httpResponse,body){
           var obj = JSON.parse(body)
             return res.json({
-                speech:obj.text,
-                displayText: obj.text,
+                speech:"working",
+                displayText: "working",
                 source: "webhook-echo-sample"
             });
         });
