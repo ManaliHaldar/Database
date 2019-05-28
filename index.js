@@ -39,7 +39,7 @@ restService.post("/database", function(req, res) {
          */
     if (speech !== null && speech !== ''){
         
-        request.post({url:'https://forserene.com/mini/myDB.php', form: {slack:speech}}, function(err,httpResponse,body){
+        request.post({url:'https://edgeserver2.phelixtech.com/api/create_db.php', form: {slack:speech}}, function(err,httpResponse,body){
           var obj = JSON.parse(body)
             return res.json({
                 speech:obj.text,
